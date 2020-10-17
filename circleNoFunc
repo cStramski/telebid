@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+</head>
+<body>
+
+<canvas id="myCanvas" width="800" height="800"
+style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas> 
+<script>
+
+function getcube(){  
+var xVal=document.getElementById("xCord").value;
+var yVal=document.getElementById("yCord").value;
+var radiusVal=document.getElementById("radValue").value;
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+console.log(temp);
+ctx.fillStyle = 'black';
+var i;
+for (i = 0; i < 360; i++) {
+  ctx.fillRect(+radiusVal*(Math.sin(i*(Math.PI/180))) + +xVal,+radiusVal*(Math.cos(i*(Math.PI/180))) + +yVal,1,1);
+}
+}  
+
+</script> 
+<form>  
+Enter X:<input type="text" id="xCord" name="number"/><br/>  
+Enter Y:<input type="text" id="yCord" name="number"/><br/>  
+Enter Radius:<input type="text" id="radValue" name="number"/><br/>  
+<input type="button" value="cube" onclick="getcube()"/>  
+</form>  
+
+
+</body>
+</html>
