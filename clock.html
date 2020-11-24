@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Clock</title>
+</head>
+<body>
+<canvas id="canvas" width="600" height="600"></canvas>
+<script type="text/javascript">
+	let a = 5;
+	let b = 0.01;
+	let radius = 100;
+	let centerX = 300;
+	let centerY = 300;
+	var date = new Date();
+	var ctx = document.getElementById('canvas').getContext('2d');
+	ctx.fillStyle = 'rgba(0, 0, 0, 0.4)';
+  	ctx.strokeStyle = 'rgba(0, 153, 255, 0.4)';
+  	ctx.lineWidth = 2;
+  	ctx.save();
+function init() {
+  window.requestAnimationFrame(draw);
+}
+
+function draw() {
+	date = new Date();
+  ctx.clearRect(0, 0, 600, 600); // clear canvas
+
+  // Earth
+	//Clock Face
+	ctx.strokeStyle = 'rgba(90, 153, 255, 2)';
+	ctx.beginPath();
+	ctx.arc(300, 300, radius, 0, 2 * Math.PI);
+	ctx.stroke();
+	for (var i = 1; i <= 12; i++) {
+		ctx.strokeStyle = 'rgba(90, 0, 0, 2)';
+		ctx.beginPath();
+		var tempAngle = Math.PI / -2 + (2*i*Math.PI)/12;
+		var tempX = Math.cos(tempAngle);
+		var tempY = Math.sin(tempAngle);
+ctx.arc(centerX+radius*tempX, centerY+radius*tempY, 2, 0, 2 * Math.PI);
+ctx.fillText(i, centerX+(20+radius)*tempX, centerY+(20+radius)*tempY);
+ctx.stroke();		
+	}
+
+	//HOUR HAND
+		ctx.strokeStyle = 'rgba(153, 255, 0, 0.4)';
+  	ctx.beginPath();
+	ctx.moveTo(centerX, centerY);
+	ctx.lineTo(centerX+0.7*radius*Math.cos(Math.PI / -2 + (2*date.getHours()*Math.PI)/12), centerY+0.7*radius*Math.sin(Math.PI / -2 + (2*date.getHours()*Math.PI)/12));
+	ctx.stroke();
+
+	//MINUTE HAND
+	ctx.strokeStyle = 'rgba(153, 0, 255, 0.4)';
+  	ctx.beginPath();
+	ctx.moveTo(centerX, centerY);
+	ctx.lineTo(centerX+0.8*radius*Math.cos(Math.PI / -2 + (2*date.getMinutes()*Math.PI)/60), centerY+0.8*radius*Math.sin(Math.PI / -2 + (2*date.getMinutes()*Math.PI)/60));
+	ctx.stroke();
+	//SECOND HAND
+	  	ctx.strokeStyle = 'rgba(0, 153, 255, 0.4)';
+  	ctx.beginPath();
+	ctx.moveTo(centerX, centerY);
+	ctx.lineTo(centerX+radius*Math.cos(Math.PI / -2 + (2*date.getSeconds()*Math.PI)/60), centerY+radius*Math.sin(Math.PI / -2 + (2*date.getSeconds()*Math.PI)/60));
+	ctx.stroke();
+
+	ctx.restore();
+  window.requestAnimationFrame(draw);
+}
+
+init();
+</script>
+</body>
+</html>
